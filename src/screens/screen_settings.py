@@ -35,19 +35,21 @@ class NewDeviceItem(OneLineIconListItem):
     def on_pressed(self):
         if _Debug:
             print('NewDeviceItem.on_pressed', self)
-        screen.select_screen('create_device_screen')
+        screen.select_screen('device_add_screen')
 
 
 class DeviceItem(TwoLineIconListItem):
 
     name = StringProperty()
+    automat_index = NumericProperty(None, allownone=True)
+    automat_id = StringProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.height = dp(48) if not self._height else self._height
 
     def get_secondary_text(self):
-        sec_text = 'connecting...'
+        sec_text = 'authorized'
         sec_color = 'bbbf'
         if _Debug:
             print('DeviceItem.get_secondary_text', sec_text)
@@ -55,14 +57,16 @@ class DeviceItem(TwoLineIconListItem):
 
     def on_pressed(self):
         if _Debug:
-            print('DeviceItem.on_pressed', self)
-        # screen.select_screen(
-        #     screen_id='private_chat_{}'.format(self.global_id),
-        #     screen_type='private_chat_screen',
-        #     global_id=self.global_id,
-        #     username=self.username,
-        #     automat_index=automat_index,
-        # )
+            print('DeviceItem.on_pressed', self, self.name, self.automat_index, self.automat_id)
+        automat_index = self.automat_index or None
+        automat_index = int(automat_index) if automat_index is not None else None
+        screen.select_screen(
+            screen_id='device_info_{}'.format(self.name),
+            screen_type='device_info_screen',
+            device_name=self.name,
+            automat_index=automat_index,
+            automat_id=self.automat_id,
+        )
 
 #------------------------------------------------------------------------------
 
@@ -573,6 +577,8 @@ class SettingsScreen(screen.AppScreen):
         for one_device in result:
             dlv.add_widget(DeviceItem(
                 name=one_device['name'],
+                automat_index=one_device.get('instance', {}).get('index'),
+                automat_id=one_device.get('instance', {}).get('id'),
             ))
 
     def on_service_started_stopped(self, event_id, service_name):
@@ -589,7 +595,7 @@ class SettingsScreen(screen.AppScreen):
 
     def on_services_list_result(self, resp):
         if _Debug:
-            print('SettingsScreen.on_services_list_result', resp)
+            print('SettingsScreen.on_services_list_result')
         # self.ids.status_label.from_api_response(resp)
         if not api_client.is_ok(resp):
             return
@@ -600,7 +606,7 @@ class SettingsScreen(screen.AppScreen):
 
     def on_configs_list_result(self, resp):
         if _Debug:
-            print('SettingsScreen.on_configs_list_result', resp)
+            print('SettingsScreen.on_configs_list_result')
         # self.ids.status_label.from_api_response(resp)
         if not api_client.is_ok(resp):
             return
