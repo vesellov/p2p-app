@@ -3,7 +3,7 @@ import requests
 import time
 
 
-_Debug = False
+_Debug = True
 
 
 def find_running_server(api_token, expected_slug=None, cb_progress=None, cb_check_stopped=None):
@@ -324,18 +324,20 @@ def check_create_update_scripts(api_token, server_info, cb_progress=None, cb_che
     server_alias = server_info['aliases'][0]
     server_slug = server_info['slug']
     client_dev_name = f'{platform.node()}_at_{server_slug}'.replace('-', '_').replace('$', '_').replace('%', '_').replace('&', '_').replace('*', '_').replace('+', '_')
+    client_dev_name = client_dev_name[:20]
     head_sh = '#!/bin/bash\r\n\r\nwhoami; pwd; id; '
     apt_sh = 'apt-get update; apt-get --yes install git gcc build-essential libssl-dev libffi-dev python3-dev python3-virtualenv; '
     useradd_sh = 'useradd -m -d /home/bitdust -s /bin/bash bitdust; usermod -aG sudo bitdust; '
     su_wrapper = lambda inp: f"su -c 'cd; whoami; pwd; id; {inp}' bitdust; "
     # clone_sh = 'rm -rf /home/bitdust/bitdust; git clone https://github.com/bitdust-io/public.git /home/bitdust/bitdust; '
     clone_sh = 'rm -rf /home/bitdust/bitdust; git clone https://github.com/vesellov/devel.git /home/bitdust/bitdust; '
-    install_sh = 'cd /home/bitdust/bitdust; python3 bitdust.py install && export PATH=\"$PATH:/home/bitdust/.bitdust/\" && bitdust set debug 16 && '
+    install_sh = 'cd /home/bitdust/bitdust; python3 bitdust.py install && export PATH="$PATH:/home/bitdust/.bitdust/" && bitdust set debug 0 && '
+    crontab_sh = '([ -z "`crontab -l | grep bitdust`" ] && ( ( crontab -u $(whoami) -l; echo "@reboot /usr/local/bin/bitdust daemon" ) | crontab -u $(whoami) - )) && '
     kill_sh = 'bitdust kill && '
-    start_sh = 'bitdust daemon && sleep 20 && bitdust states &&'
+    start_sh = 'bitdust daemon && sleep 10 && bitdust states && '
     add_device_sh = f"bitdust dev add direct {client_dev_name} {server_alias} && bitdust dev stop {client_dev_name} && bitdust dev key {client_dev_name} && bitdust dev start {client_dev_name} && "
-    tail_sh = 'echo "\nSUCCESS\n"'
-    bitdust_deploy_sh = head_sh + apt_sh + useradd_sh + su_wrapper(clone_sh + install_sh + kill_sh + start_sh + add_device_sh + tail_sh)
+    tail_sh = 'echo "\\nSUCCESS\\n"'
+    bitdust_deploy_sh = head_sh + apt_sh + useradd_sh + su_wrapper(clone_sh + install_sh + crontab_sh + kill_sh + start_sh + add_device_sh + tail_sh)
 
     if cb_check_stopped and cb_check_stopped():
         if _Debug:
@@ -425,7 +427,7 @@ def execute_script(api_token, server_slug, script_id, cb_progress=None, cb_check
             print('\nSTOPPED!\n')
         raise Exception('stopped')
     if cb_progress:
-        cb_progress(f'configuration .')
+        cb_progress(f'node installation .')
 
     script_execute_response = requests.post(
         url=f'https://api.webdock.io/v1/servers/{server_slug}/scripts',
@@ -468,7 +470,7 @@ def execute_script(api_token, server_slug, script_id, cb_progress=None, cb_check
             },
         )
         if _Debug:
-            print(f'webdock_io.execute_script GET:/v1/events response: {len(events_response.text)} bytes\n')
+            print(f'webdock_io.execute_script GET:/v1/events?eventType=push-file response: {len(events_response.text)} bytes\n')
         events_response.raise_for_status()
         events_list = events_response.json()
         if not events_list:
@@ -490,9 +492,9 @@ def execute_script(api_token, server_slug, script_id, cb_progress=None, cb_check
             time.sleep(3)
             continue
 
+        if _Debug:
+            print(f'    status is {first_script_execution_event.get("status")}\n')
         if first_script_execution_event.get('status') not in ['finished', 'error', ]:
-            if _Debug:
-                print(f'    status is {first_script_execution_event.get("status")}\n')
             time.sleep(3)
             continue
 
@@ -504,7 +506,7 @@ def execute_script(api_token, server_slug, script_id, cb_progress=None, cb_check
     if not first_script_execution_event:
         raise Exception('deployment script execution failed, not possible to find script execution result')
 
-    return first_script_execution_event['message']
+    return first_script_execution_event
 
 
 def run(api_token, cb_progress=None, cb_check_stopped=None):
@@ -541,10 +543,12 @@ def run(api_token, cb_progress=None, cb_check_stopped=None):
             print('\nSTOPPED!\n')
         raise Exception('stopped')
 
-    result = execute_script(api_token, running_server['slug'], existing_script['id'], cb_progress=cb_progress, cb_check_stopped=cb_check_stopped)
+    result_info = execute_script(api_token, running_server['slug'], existing_script['id'], cb_progress=cb_progress, cb_check_stopped=cb_check_stopped)
 
-    if result.strip().endswith('SUCCESS'):
-        if cb_progress:
-            cb_progress(f'node was successfully configured\n')
+    if result_info.get('status') != 'finished' or not (result_info.get('message') or '').strip().endswith('SUCCESS'):
+        raise Exception(result_info.get('message') or 'script execution failed')
 
-    return result
+    if cb_progress:
+        cb_progress(f'node was successfully configured\n')
+
+    return result_info.get('message')

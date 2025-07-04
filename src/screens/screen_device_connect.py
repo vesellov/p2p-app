@@ -531,13 +531,15 @@ class TabWebdockIODevice(MDFloatLayout, MDTabsBase, WebSocketConnectorController
             system.open_url('https://webdock.io')
         elif args[1] == 'webdock_io_profile_page_link':
             system.open_url('https://webdock.io/en/dash/profile')
+        elif args[1] == 'webdock_io_signup_link':
+            system.open_url('https://webdock.io/en/signup')
 
     def on_webdock_io_api_token_enter_button_clicked(self):
         if _Debug:
             print('TabWebdockIODevice.on_webdock_io_api_token_enter_button_clicked')
         self.api_token_input_dialog = dialogs.open_text_input_dialog(
-            title='Connection info',
-            text='Enter device connection URL generated on the remote BitDust node:',
+            title='Webdock.io API token',
+            text='Copy & paste here API token from Webdock.io > Account > API & Integrations section:',
             button_confirm='Continue',
             button_cancel='Back',
             cb=self.on_webdock_io_api_token_entered,
