@@ -157,8 +157,7 @@ class EngineStatusScreen(screen.AppScreen):
             print('EngineStatusScreen.on_device_configurations_content_link_pressed', args)
         if args[1] == 'add_new_configuration_link':
             self.app().selected_client = None
-            if self.control().enabled:
-                self.control().stop()
+            self.control().stop()
             self.main_win().state_node_local = -1
             self.main_win().state_device_authorized = False
             self.main_win().state_process_health = -1
@@ -192,8 +191,7 @@ class EngineStatusScreen(screen.AppScreen):
                 return
             if not _info.get('local') and not _info.get('auth_token'):
                 return
-            if self.control().enabled:
-                self.control().stop()
+            self.control().stop()
             screen.my_app().set_client_info(_info)
             self.main_win().state_node_local = 1 if _info.get('local') else 0
             self.main_win().state_device_authorized = True

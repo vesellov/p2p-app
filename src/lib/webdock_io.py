@@ -3,7 +3,7 @@ import requests
 import time
 
 
-_Debug = True
+_Debug = False
 
 
 def find_running_server(api_token, expected_slug=None, cb_progress=None, cb_check_stopped=None):
@@ -331,13 +331,15 @@ def check_create_update_scripts(api_token, server_info, cb_progress=None, cb_che
     su_wrapper = lambda inp: f"su -c 'cd; whoami; pwd; id; {inp}' bitdust; "
     # clone_sh = 'rm -rf /home/bitdust/bitdust; git clone https://github.com/bitdust-io/public.git /home/bitdust/bitdust; '
     clone_sh = 'rm -rf /home/bitdust/bitdust; git clone https://github.com/vesellov/devel.git /home/bitdust/bitdust; '
-    install_sh = 'cd /home/bitdust/bitdust; python3 bitdust.py install && export PATH="$PATH:/home/bitdust/.bitdust/" && bitdust set debug 0 && '
-    crontab_sh = '([ -z "`crontab -l | grep bitdust`" ] && ( ( crontab -u $(whoami) -l; echo "@reboot /usr/local/bin/bitdust daemon" ) | crontab -u $(whoami) - )) && '
+    install_sh = 'cd /home/bitdust/bitdust; python3 bitdust.py install && cd /home/bitdust/ && export PATH="$PATH:/home/bitdust/.bitdust" && '
+    set_path_sh = '( ( grep -qxF "export PATH=\$PATH:/home/bitdust/.bitdust" .bashrc || echo "export PATH=\$PATH:/home/bitdust/.bitdust" >> .bashrc ) ) && '
+    crontab_sh = 'bitdust install crontab && '
     kill_sh = 'bitdust kill && '
     start_sh = 'bitdust daemon && sleep 10 && bitdust states && '
+    config_sh = 'bitdust set services/proxy-transport/enabled false && '
     add_device_sh = f"bitdust dev add direct {client_dev_name} {server_alias} && bitdust dev stop {client_dev_name} && bitdust dev key {client_dev_name} && bitdust dev start {client_dev_name} && "
-    tail_sh = 'echo "\\nSUCCESS\\n"'
-    bitdust_deploy_sh = head_sh + apt_sh + useradd_sh + su_wrapper(clone_sh + install_sh + crontab_sh + kill_sh + start_sh + add_device_sh + tail_sh)
+    tail_sh = 'sleep 2 && bitdust restart && echo "" && echo "SUCCESS"'
+    bitdust_deploy_sh = head_sh + apt_sh + useradd_sh + su_wrapper(clone_sh + install_sh + set_path_sh + crontab_sh + kill_sh + config_sh + start_sh + add_device_sh + tail_sh)
 
     if cb_check_stopped and cb_check_stopped():
         if _Debug:
@@ -528,7 +530,7 @@ def run(api_token, cb_progress=None, cb_check_stopped=None):
         raise Exception('stopped')
     if cb_progress:
         cb_progress('connecting to api.webdock.io\n')
-    
+
     running_server = check_start_deploy_server(api_token, cb_progress=cb_progress, cb_check_stopped=cb_check_stopped)
 
     if cb_check_stopped and cb_check_stopped():
