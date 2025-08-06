@@ -1,0 +1,61 @@
+<NetworkConfigScreen>:
+
+    ScreenContainerLayout:
+
+        TopEmptyScreenSpace:
+
+        AppScreenLayout:
+
+            VerticalScrollView:
+
+	            VerticalWithPaddingLayout:
+	                size_hint: None, None
+	                pos_hint: {"top": 1}
+	                height: self.minimum_height
+	                width: root.width - app.scroll_bar_width
+
+	                MarkupLabel:
+	                    size_hint_y: None
+	                    text_size: self.width, None
+	                    height: self.texture_size[1]
+	                    text:
+                            """\nYou can use the BitDust p2p-app to access different BitDust networks that are totally isolated from each other.
+                            The official public BitDust network is always available for people to join. The seed nodes here are maintained by the founders of the project.
+							But you can also run your own hardware and maintain a number of your own BitDust seed nodes. This is a way to run a completely isolated and private BitDust network for your friends, colleagues or other people you trust.
+							Read more about how to do that on the [u][color=#0000ff][ref=wiki_seed_node_link]seed node[/ref][/color][/u] wiki page. The owner of the private network will have to prepare and share with you a text file storing the network configuration.
+							A simple way to join the private network is to scan a QR code or manually enter the URL address of the network configuration file."""
+	                    on_ref_press: root.on_help_text_link_pressed(*args)
+
+	                MarkupLabel:
+	                    id: network_config_content_label
+	                    size_hint: 1, None
+	                    height: self.texture_size[1]
+	                    halign: 'left'
+	                    on_ref_press: root.on_network_config_content_label_link_pressed(*args)
+	                    text: ''
+
+	                VFixedEmptySpace:
+
+		            FillRoundFlatButton:
+		                id: qr_scan_open_button
+		                text: "[size=18sp]{}[/size]  [size=16sp][b]scan QR code[/b][/size]".format(md_icon("barcode-scan"))
+		                md_bg_color: app.theme_cls.accent_color
+		                theme_text_color: "Custom"
+		                text_color: app.color_white99
+		                pos_hint: {'left': 0}
+		                on_release: root.on_qr_scan_open_button_clicked()
+
+	                VFixedEmptySpace:
+
+		            FillRoundFlatButton:
+		                id: url_enter_button
+		                text: "[size=18sp]{}[/size]  [size=16sp][b]enter URL[/b][/size]".format(md_icon("console-line"))
+		                md_bg_color: app.theme_cls.accent_color
+		                theme_text_color: "Custom"
+		                text_color: app.color_white99
+		                pos_hint: {'left': 0}
+		                on_release: root.on_url_enter_button_clicked()
+
+	                VEmptySpace:
+
+        BottomEmptyScreenSpace:

@@ -11,33 +11,13 @@
                 size_hint_x: 1
                 statuses: root.get_statuses()
 
-            VEmptySpace:
-                size_hint_y: 0.5
+		    AnchorLayout:
 
-            HLayout:
-                size_hint: 1, .01
-
-                HEmptySpace:
-                    size_hint_x: 0.5
-
-                VLayout:
-                    id: central_widget
-                    size_hint: None, .01
-                    width: self.minimum_width
-                    spacing: dp(30)
-
-					CircularProgressBar:
-						id: spinner
-						size_hint: (None, None)
-						size: dp(100), dp(100)
-                        halign: 'center'
-                        pos_hint: {'center_x': .5}
-                        max: 360
-
-                HEmptySpace:
-                    size_hint_x: 0.5
-
-            VEmptySpace:
-                size_hint_y: 0.5
+	            VLayout:
+	                id: central_widget
+	                size_hint: None, None
+	                width: self.minimum_width
+	                height: self.minimum_height
+	                spacing: dp(20)
 
         BottomEmptyScreenSpace:

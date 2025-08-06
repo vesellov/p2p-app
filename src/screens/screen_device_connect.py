@@ -223,6 +223,7 @@ class WebSocketConnectorController(object):
             self.device_check_task = None
         self.device_check_task = Clock.schedule_once(self._do_connect, 2)
 
+    @mainthread
     def on_server_code_entered(self, inp):
         if _Debug:
             print('WebSocketConnectorController.on_server_code_entered', inp, self.server_code_input_dialog)
