@@ -18,6 +18,7 @@ class NetworkServiceElement(buttons.CustomRaisedFlexButton):
         self._depends = kwargs.pop('depends', [])
         self._last_md_bg_color = None
         super().__init__(**kwargs)
+        self.min_state_time = 0
         self.always_release = True
 
     def on_press(self):
@@ -75,6 +76,7 @@ class ConnectingScreen(screen.AppScreen):
             self.state_panel_attached = self.ids.state_panel.attach(automat_id='p2p_connector')
         api_client.add_model_listener('service', listener_cb=self.on_service)
         self.populate()
+        self.control().send_request_model_data('service')
 
     def on_leave(self, *args):
         api_client.remove_model_listener('service', listener_cb=self.on_service)

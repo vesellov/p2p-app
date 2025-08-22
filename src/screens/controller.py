@@ -34,68 +34,38 @@ _DebugModelUpdates = False
 
 def all_screens():
     return {
-        'startup_screen': (
-            'screens/screen_startup.kv', 'screens.screen_startup', 'StartUpScreen', ),
-        'engine_status_screen': (
-            'screens/screen_engine_status.kv', 'screens.screen_engine_status', 'EngineStatusScreen', ),
-        'connecting_screen': (
-            'screens/screen_connecting.kv', 'screens.screen_connecting', 'ConnectingScreen', ),
-        'device_add_screen': (
-            'screens/screen_device_add.kv', 'screens.screen_device_add', 'DeviceAddScreen', ),
-        'device_info_screen': (
-            'screens/screen_device_info.kv', 'screens.screen_device_info', 'DeviceInfoScreen', ),
-        'device_connect_screen': (
-            'screens/screen_device_connect.kv', 'screens.screen_device_connect', 'DeviceConnectScreen', ),
-        'device_disconnected_screen': (
-            'screens/screen_device_disconnected.kv', 'screens.screen_device_disconnected', 'DeviceDisconnectedScreen', ),
-        'new_identity_screen': (
-            'screens/screen_new_identity.kv', 'screens.screen_new_identity', 'NewIdentityScreen', ),
-        'recover_identity_screen': (
-            'screens/screen_recover_identity.kv', 'screens.screen_recover_identity', 'RecoverIdentityScreen', ),
-        'backup_identity_screen': (
-            'screens/screen_backup_identity.kv', 'screens.screen_backup_identity', 'BackupIdentityScreen', ),
-        'welcome_screen': (
-            'screens/screen_welcome.kv', 'screens.screen_welcome', 'WelcomeScreen', ),
-        'settings_screen': (
-            'screens/screen_settings.kv', 'screens.screen_settings', 'SettingsScreen', ),
-        'my_id_screen': (
-            'screens/screen_my_id.kv', 'screens.screen_my_id', 'MyIDScreen', ),
-        'about_screen': (
-            'screens/screen_about.kv', 'screens.screen_about', 'AboutScreen', ),
-        'search_people_screen': (
-            'screens/screen_search_people.kv', 'screens.screen_search_people', 'SearchPeopleScreen', ),
-        'friends_screen': (
-            'screens/screen_friends.kv', 'screens.screen_friends', 'FriendsScreen', ),
-        'select_friend_screen': (
-            'screens/screen_select_friend.kv', 'screens.screen_select_friend', 'SelectFriendScreen', ),
-        'conversations_screen': (
-            'screens/screen_conversations.kv', 'screens.screen_conversations', 'ConversationsScreen', ),
-        'create_group_screen': (
-            'screens/screen_create_group.kv', 'screens.screen_create_group', 'CreateGroupScreen', ),
-        'private_chat_screen': (
-            'screens/screen_private_chat.kv', 'screens.screen_private_chat', 'PrivateChatScreen', ),
-        'group_chat_screen': (
-            'screens/screen_group_chat.kv', 'screens.screen_group_chat', 'GroupChatScreen', ),
-        'group_info_screen': (
-            'screens/screen_group_info.kv', 'screens.screen_group_info', 'GroupInfoScreen', ),
-        'private_files_screen': (
-            'screens/screen_private_files.kv', 'screens.screen_private_files', 'PrivateFilesScreen', ),
-        'single_private_file_screen': (
-            'screens/screen_single_private_file.kv', 'screens.screen_single_private_file', 'SinglePrivateFileScreen', ),
-        'shares_screen': (
-            'screens/screen_shares.kv', 'screens.screen_shares', 'SharesScreen', ),
-        'create_share_screen': (
-            'screens/screen_create_share.kv', 'screens.screen_create_share', 'CreateShareScreen', ),
-        'shared_location_screen': (
-            'screens/screen_shared_location.kv', 'screens.screen_shared_location', 'SharedLocationScreen', ),
-        'shared_location_info_screen': (
-            'screens/screen_shared_location_info.kv', 'screens.screen_shared_location_info', 'SharedLocationInfoScreen', ),
-        'single_shared_file_screen': (
-            'screens/screen_single_shared_file.kv', 'screens.screen_single_shared_file', 'SingleSharedFileScreen', ),
-        'my_storage_info_screen': (
-            'screens/screen_my_storage_info.kv', 'screens.screen_my_storage_info', 'MyStorageInfoScreen', ),
-        'scan_qr_screen': (
-            'screens/screen_scan_qr.kv', 'screens.screen_scan_qr', 'ScanQRScreen', ),
+        'startup_screen': ('screens/screen_startup.kv', 'screens.screen_startup', 'StartUpScreen', ),
+        'engine_status_screen': ('screens/screen_engine_status.kv', 'screens.screen_engine_status', 'EngineStatusScreen', ),
+        'connecting_screen': ('screens/screen_connecting.kv', 'screens.screen_connecting', 'ConnectingScreen', ),
+        'network_config': ('screens/screen_network_config.kv', 'screens.screen_network_config', 'NetworkConfigScreen', ),
+        'device_add_screen': ('screens/screen_device_add.kv', 'screens.screen_device_add', 'DeviceAddScreen', ),
+        'device_info_screen': ('screens/screen_device_info.kv', 'screens.screen_device_info', 'DeviceInfoScreen', ),
+        'device_connect_screen': ('screens/screen_device_connect.kv', 'screens.screen_device_connect', 'DeviceConnectScreen', ),
+        'device_disconnected_screen': ('screens/screen_device_disconnected.kv', 'screens.screen_device_disconnected', 'DeviceDisconnectedScreen', ),
+        'new_identity_screen': ('screens/screen_new_identity.kv', 'screens.screen_new_identity', 'NewIdentityScreen', ),
+        'recover_identity_screen': ('screens/screen_recover_identity.kv', 'screens.screen_recover_identity', 'RecoverIdentityScreen', ),
+        'backup_identity_screen': ('screens/screen_backup_identity.kv', 'screens.screen_backup_identity', 'BackupIdentityScreen', ),
+        'welcome_screen': ('screens/screen_welcome.kv', 'screens.screen_welcome', 'WelcomeScreen', ),
+        'settings_screen': ('screens/screen_settings.kv', 'screens.screen_settings', 'SettingsScreen', ),
+        'my_id_screen': ('screens/screen_my_id.kv', 'screens.screen_my_id', 'MyIDScreen', ),
+        'about_screen': ('screens/screen_about.kv', 'screens.screen_about', 'AboutScreen', ),
+        'search_people_screen': ('screens/screen_search_people.kv', 'screens.screen_search_people', 'SearchPeopleScreen', ),
+        'friends_screen': ('screens/screen_friends.kv', 'screens.screen_friends', 'FriendsScreen', ),
+        'select_friend_screen': ('screens/screen_select_friend.kv', 'screens.screen_select_friend', 'SelectFriendScreen', ),
+        'conversations_screen': ('screens/screen_conversations.kv', 'screens.screen_conversations', 'ConversationsScreen', ),
+        'create_group_screen': ('screens/screen_create_group.kv', 'screens.screen_create_group', 'CreateGroupScreen', ),
+        'private_chat_screen': ('screens/screen_private_chat.kv', 'screens.screen_private_chat', 'PrivateChatScreen', ),
+        'group_chat_screen': ('screens/screen_group_chat.kv', 'screens.screen_group_chat', 'GroupChatScreen', ),
+        'group_info_screen': ('screens/screen_group_info.kv', 'screens.screen_group_info', 'GroupInfoScreen', ),
+        'private_files_screen': ('screens/screen_private_files.kv', 'screens.screen_private_files', 'PrivateFilesScreen', ),
+        'single_private_file_screen': ('screens/screen_single_private_file.kv', 'screens.screen_single_private_file', 'SinglePrivateFileScreen', ),
+        'shares_screen': ('screens/screen_shares.kv', 'screens.screen_shares', 'SharesScreen', ),
+        'create_share_screen': ('screens/screen_create_share.kv', 'screens.screen_create_share', 'CreateShareScreen', ),
+        'shared_location_screen': ('screens/screen_shared_location.kv', 'screens.screen_shared_location', 'SharedLocationScreen', ),
+        'shared_location_info_screen': ('screens/screen_shared_location_info.kv', 'screens.screen_shared_location_info', 'SharedLocationInfoScreen', ),
+        'single_shared_file_screen': ('screens/screen_single_shared_file.kv', 'screens.screen_single_shared_file', 'SingleSharedFileScreen', ),
+        'my_storage_info_screen': ('screens/screen_my_storage_info.kv', 'screens.screen_my_storage_info', 'MyStorageInfoScreen', ),
+        'scan_qr_screen': ('screens/screen_scan_qr.kv', 'screens.screen_scan_qr', 'ScanQRScreen', ),
     }
 
 
@@ -113,6 +83,7 @@ def identity_missing_screens_list():
         'new_identity_screen',
         'recover_identity_screen',
         'settings_screen',
+        # 'network_config',
         'my_id_screen',
         'about_screen',
     ]

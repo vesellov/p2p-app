@@ -1,6 +1,9 @@
 import os
 from kivy.utils import platform
 
+# https://icofont.com/icons
+# https://fontawesome.com/v5/search?o=r&m=free
+# https://pictogrammers.com/library/mdi/
 
 def font_path(ttf_filename):
     if platform == 'android':

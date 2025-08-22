@@ -98,8 +98,6 @@ class ScanQRScreen(screen.AppScreen):
             Clock.schedule_once(lambda dt: _cb(strng.to_text(args[1])))
 
     def on_tex(self, camera):
-        if _Debug:
-            print('ScanQRScreen.on_tex', camera)
         from pyzbar import pyzbar
         try:
             image_data = camera.texture.pixels
@@ -113,6 +111,8 @@ class ScanQRScreen(screen.AppScreen):
                 result_symbols.append(symbol)
             if not result_symbols:
                 return
+            if _Debug:
+                print('ScanQRScreen.on_tex', camera, result_symbols)
             result_text = ', '.join([symbol.data.decode('utf-8') for symbol in result_symbols])
         except Exception as exc:
             if _Debug:

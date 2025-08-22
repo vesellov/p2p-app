@@ -205,7 +205,7 @@ class CustomRaisedButton(CustomRectangularButton, RectangularElevationBehavior, 
     pass
 
 
-class CustomRaisedFlexButton(CustomRectangularFlexButton, RectangularElevationBehavior, SpecificBackgroundColorBehavior, BaseElevationButton, BasePressedButton):
+class CustomRaisedFlexButton(SpecificBackgroundColorBehavior, CustomRectangularFlexButton):
     pass
 
 

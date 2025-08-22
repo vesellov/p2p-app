@@ -248,6 +248,10 @@ def network_reconnect(cb=None):
     return run('network_reconnect', cb=cb)
 
 
+def network_configuration(cb=None):
+    return run('network_configuration', cb=cb)
+
+
 def configs_list(sort=True, include_info=False, cb=None):
     return run('configs_list', kwargs={'sort': sort, 'include_info': include_info, }, cb=cb)
 
