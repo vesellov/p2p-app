@@ -45,7 +45,7 @@
                     Name="BitDust p2p-app"
                     Description="BitDust p2p-app is an open-source peer-to-peer network application for secure data storage and private on-line communications."
                     Target="[%HOMEDRIVE][%HOMEPATH]\.bitdust\python\bitdust-p2p-app.exe"
-                    Arguments="src\main.py"
+                    Arguments="launcher.py"
                     WorkingDirectory="UI_SRC_DIR"
                     Advertise="no"
                     Icon="AppIcon" />
@@ -60,7 +60,7 @@
                     Name="BitDust p2p-app"
                     Description="BitDust p2p-app is an open-source peer-to-peer network application for secure data storage and private on-line communications."
                     Target="[%HOMEDRIVE][%HOMEPATH]\.bitdust\python\bitdust-p2p-app.exe"
-                    Arguments="src\main.py"
+                    Arguments="launcher.py"
                     WorkingDirectory="UI_SRC_DIR"
                     Advertise="no"
                     Icon="AppIcon" />
