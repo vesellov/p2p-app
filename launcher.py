@@ -20,9 +20,9 @@ def launch():
     run_cmd(['..\\git\\bin\\git.exe', '-c', 'http.sslBackend=schannel', 'fetch', '--all', ])
     run_cmd(['..\\git\\bin\\git.exe', '-c', 'http.sslBackend=schannel', 'reset', '--hard', 'origin/master', ])
 
-    sys.path.append('src')
+    sys.path.insert(0, os.path.join(os.getcwd(), 'src'))
 
-    from src.main import main 
+    from main import main
     return main()
 
 
