@@ -140,11 +140,11 @@ class MainWin(Screen, ThemableBehavior, styles.AppStyle):
         if self.state_process_health != 1:
             return screen_id in ['engine_status_screen', 'startup_screen', 'welcome_screen', 'about_screen', ]
         if self.state_identity_get != 1:
-            return screen_id in ['engine_status_screen', 'startup_screen', 'welcome_screen', 'settings_screen',
+            return screen_id in ['engine_status_screen', 'startup_screen', 'welcome_screen', 'settings_screen', 'wallet_screen',
                                  'my_id_screen', 'new_identity_screen', 'recover_identity_screen', 'about_screen', ]
         if self.state_network_connected != 1:
             return screen_id in ['engine_status_screen', 'startup_screen', 'welcome_screen',
-                                 'connecting_screen', 'settings_screen',
+                                 'connecting_screen', 'settings_screen', 'wallet_screen',
                                  'my_id_screen', 'new_identity_screen', 'recover_identity_screen', 'about_screen', ]
         return True
 

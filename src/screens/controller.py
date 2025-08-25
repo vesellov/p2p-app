@@ -66,6 +66,7 @@ def all_screens():
         'single_shared_file_screen': ('screens/screen_single_shared_file.kv', 'screens.screen_single_shared_file', 'SingleSharedFileScreen', ),
         'my_storage_info_screen': ('screens/screen_my_storage_info.kv', 'screens.screen_my_storage_info', 'MyStorageInfoScreen', ),
         'scan_qr_screen': ('screens/screen_scan_qr.kv', 'screens.screen_scan_qr', 'ScanQRScreen', ),
+        'wallet_screen': ('screens/screen_wallet.kv', 'screens.screen_wallet', 'WalletScreen', ),
     }
 
 
@@ -83,7 +84,7 @@ def identity_missing_screens_list():
         'new_identity_screen',
         'recover_identity_screen',
         'settings_screen',
-        # 'network_config',
+        'network_config',
         'my_id_screen',
         'about_screen',
     ]

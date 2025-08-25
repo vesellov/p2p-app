@@ -450,6 +450,14 @@ def dht_user_random(layer_id=0, count=1, cb=None):
     return run('dht_user_random', kwargs={'layer_id': layer_id, 'count': count, }, cb=cb)
 
 
+def blockchain_wallet_balance(cb=None):
+    return run('blockchain_wallet_balance', kwargs={}, cb=cb)
+
+
+def blockchain_wallet_transactions(num=100, offset=0, cb=None):
+    return run('blockchain_wallet_transactions', kwargs={'num': num, 'offset': offset, }, cb=cb)
+
+
 def automat_events_start(index=None, automat_id=None, cb=None):
     return run('automat_events_start', kwargs={'index': index, 'automat_id': automat_id, }, cb=cb)
 

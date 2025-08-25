@@ -372,7 +372,7 @@ class TabServerDevice(MDFloatLayout, MDTabsBase, WebSocketConnectorController):
             system.open_url('https://bitdust.io/wiki/install.html')
         elif args[1] == 'wiki_device_config_page_link':
             system.open_url('https://bitdust.io/wiki/devices.html')
-        
+
     def on_url_enter_button_clicked(self, *args):
         if _Debug:
             print('TabServerDevice.on_url_enter_button_clicked', args)
